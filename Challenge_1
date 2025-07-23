@@ -1,0 +1,34 @@
+🍜 Case Study #1: Danny’s Diner
+📖 Introduction
+In early 2021, Danny pursued his dream of opening Danny’s Diner, a cozy Japanese restaurant serving sushi, curry, and ramen. While the restaurant quickly became popular, Danny lacked the data analytics expertise needed to fully understand his customers' behavior and optimize business operations using the data collected during the first few months.
+
+To make informed business decisions and improve customer engagement, Danny is seeking help analyzing the available data and building a foundation for data-driven growth.
+
+❓ Problem Statement
+Danny wants to leverage his customer data to uncover insights into:
+
+Customer visit patterns
+
+Spending behavior
+
+Popular menu items
+
+His ultimate goal is to design a personalized customer loyalty program and make strategic business decisions based on data. He also wants easily accessible datasets that his non-technical team can review without writing SQL themselves.
+
+Due to privacy concerns, Danny has shared a sample dataset representing real customer activity — and your challenge is to turn this into actionable insights using SQL.
+
+🧾 Datasets Provided
+The case study is centered around three tables:
+
+sales – Records of customer orders
+
+menu – Menu items and their prices
+
+members – Customers who joined the loyalty program
+
+🔗 Entity Relationship Diagram (ERD)
+Here’s the relationship between the datasets:
+
+css
+Copy
+Edit
