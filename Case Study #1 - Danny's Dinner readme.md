@@ -37,7 +37,8 @@ members – Customers who joined the loyalty program
 
 <h1><a name = "entity diagram"> 🔗 Entity Relation Diagram (ERD)</a></h1>
 
-<img width="500" alt="Coding" src="https://github.com/malak-mehta50/images/blob/427f7ff220d7c15a7ebcc7400652d59284503c2e/erd.png">
+<img width="500" height="367" alt="erd" src="https://github.com/user-attachments/assets/8a5dd890-ca49-4d2f-a8db-e5766bae852c" />
+
 
 <h1><a name= "Case study"> Case Study Questions & Answers</a></h1>
 
@@ -74,8 +75,9 @@ FROM sales
 GROUP BY customer_id
 ORDER BY customer_id; 
 ```
+<img width="200" height="119" alt="q2" src="https://github.com/user-attachments/assets/136598cd-7184-4a27-8608-36f1f4956521" />
 
-<img width="200" alt="Coding" src="https://github.com/malak-mehta50/images/blob/2afcd60a1284b536458d391bcc988821e3a625a0/q2.png">
+
 
 <h6>Answer:</h6>
 
@@ -104,7 +106,8 @@ FROM CTE
 WHERE rank = 1;
 ;
 ```
-<img width="200" alt="Coding" src="https://github.com/malak-mehta50/images/blob/2afcd60a1284b536458d391bcc988821e3a625a0/q3.png">
+<img width="200" height="164" alt="q3" src="https://github.com/user-attachments/assets/d6c013d6-275a-47bf-bb38-2c60a24c5a17" />
+
 
 <ul> <li>This query identifies the <code>first item</code> each customer purchased based on the <code>order_date</code>.</li>
 
@@ -126,7 +129,7 @@ ORDER BY COUNT(order_date) DESC
 LIMIT 1;
 ```
 
-<img width ="200" alt = "Coding" src="https://github.com/malak-mehta50/images/blob/2afcd60a1284b536458d391bcc988821e3a625a0/q4.png">
+<img width="200" height="69" alt="q4" src="https://github.com/user-attachments/assets/d9f52ef4-b8e0-4a92-94a5-026a77aa25e1" />
 
 <ul> <li>This query determines the <code>most frequently purchased</code> item across all customers.</li>
 
@@ -152,7 +155,8 @@ FROM CTE
 WHERE rank = 1;
 ;
 ```
-<img width="200" alt= "Coding" src="https://github.com/malak-mehta50/images/blob/2afcd60a1284b536458d391bcc988821e3a625a0/q5.png">
+<img width="200" height="167" alt="q5" src="https://github.com/user-attachments/assets/cca87289-e9c7-4b2b-9f7f-e3c289bf9be5" />
+
 
 <ul> <li>This query finds each customer's <code>most frequently ordered</code> item.</li>
 
@@ -181,8 +185,9 @@ SELECT customer_id, product_name
 FROM CTE
 WHERE first_item = 1;
 ```
+<img width="200" height="96" alt="q6" src="https://github.com/user-attachments/assets/a8d365d5-c455-4778-8e32-46d1d589bd7a" />
 
-<img width="200" alt= "Coding" src="https://github.com/malak-mehta50/images/blob/aa38332f088a0581286cec08856510c4df0430da/q6.png">
+
 
 <ul> <li>This query finds the <code>first purchase made after membership</code> activation for each customer.</li> 
 
@@ -211,8 +216,9 @@ SELECT customer_id, product_name
 FROM CTE
 WHERE first_item = 1;
 ```
+<img width="200" height="117" alt="q7" src="https://github.com/user-attachments/assets/802ebe2a-e5db-40ba-b68e-0603f51719ed" />
 
-<img width="200" alt= "Coding" src="https://github.com/malak-mehta50/images/blob/aa38332f088a0581286cec08856510c4df0430da/q7.png">
+
 
 <ul> <li>This query looks for the purchase that happened <code>immediately before</code> each customer joined the program.</li> 
 
@@ -235,8 +241,9 @@ WHERE order_date < join_date
 GROUP BY s.customer_id;
 
 ```
+<img width="200" height="91" alt="q8" src="https://github.com/user-attachments/assets/614f541c-31b8-4ddb-bdd2-95df288c653b" />
 
-<img width="200" alt= "Coding" src="https://github.com/malak-mehta50/images/blob/aa38332f088a0581286cec08856510c4df0430da/q8.png">
+
 
 <ul> <li>This query measures each member’s activity <code>prior to joining</code> the loyalty program.</li>
 
@@ -261,7 +268,8 @@ GROUP BY s.customer_id
 ORDER BY customer_id;
 ```
 
-<img width="200" alt= "Coding" src="https://github.com/malak-mehta50/images/blob/aa38332f088a0581286cec08856510c4df0430da/q9.png">
+<img width="200" height="114" alt="q9" src="https://github.com/user-attachments/assets/91c7051a-e2ef-451e-a1bf-62a6da40e6ec" />
+
 
 <ul> <li>This query converts each customer’s spend into <code>loyalty points</code>.</li> 
 
@@ -289,8 +297,9 @@ WHERE DATE_TRUNC('month', order_date) = DATE '2021-01-01'
 GROUP BY s.customer_id
 ORDER BY s.customer_id;
 ```
+<img width="200" height="91" alt="q10" src="https://github.com/user-attachments/assets/08bc093b-4a47-4ad2-9b93-bd3f904be75e" />
 
-<img width="200" alt= "Coding" src="https://github.com/malak-mehta50/images/blob/aa38332f088a0581286cec08856510c4df0430da/q10.png">
+
 
 <ul> <li>This query applies a special <code>2x points boost for the first 7 days</code> (join date + next 6 days) after a customer joins.</li>
 
