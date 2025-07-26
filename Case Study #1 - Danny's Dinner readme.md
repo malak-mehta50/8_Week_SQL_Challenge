@@ -51,7 +51,8 @@ ON s.product_id = m.product_id
 GROUP BY customer_id
 ORDER BY customer_id;
 ```
-<img width="200" alt="Coding" src="https://github.com/malak-mehta50/images/blob/2afcd60a1284b536458d391bcc988821e3a625a0/q1.png">
+<img width="200" height="118" alt="q1" src="https://github.com/user-attachments/assets/10434423-3185-4a01-a4fd-5fded66c18f9" />
+
 
 <h6>Answer:</h6>
 
