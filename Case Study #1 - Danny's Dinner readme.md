@@ -1,5 +1,7 @@
 <h1>Case Study #1 - Danny's Diner👨🏻‍🍳</h1>
-<img width="500" alt="Coding" src="https://github.com/malak-mehta50/images/blob/b10e4253a6875d2f44ac709d5e1059f845ee6750/new%20ss.png"
+<img width="500" height="706" alt="DD" src="https://github.com/user-attachments/assets/2a434473-3645-4d90-9754-cd368b15ab80" />
+
+
   
 ## 
 
