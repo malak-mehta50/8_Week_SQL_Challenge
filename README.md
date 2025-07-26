@@ -39,10 +39,19 @@ Every query here reflects not just technical execution, but my thought process i
 🔧 Tools Used
 PostgreSQL (local setup via pgAdmin)
 
+<h2>CONTENTS📝</h2>
+<ul>
+  <li> 
+    <a href="https://github.com/malak-mehta50/8_Week_SQL_Challenge/blob/baf00a203d26fec11249312b107a1c22a28f4802/Case%20Study%20%231%20-%20Danny's%20Dinner%20readme.md">
+      <img src="Case Study #1 - Danny's Diner" alt=""> Case Study #1 - Danny's Diner
+    </a> 
+  </li>
+</ul>
 
-✨ About Me
-
+<h2>✨ About Me</h2>
+<p>
 I'm Malak — passionate about data-driven storytelling, creating visual and analytical solutions, and turning messy business data into actionable insights.
+</p>
 
-📬 Let’s Connect: [LinkedIn](www.linkedin.com/in/malak-mehta-
-)
+<p>📬 Let’s Connect: <a href="https://www.linkedin.com/in/malak-mehta-">LinkedIn</a></p>
+
