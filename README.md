@@ -42,7 +42,7 @@ PostgreSQL (local setup via pgAdmin)
 <h2>CONTENTS📝</h2>
 <ul>
   <li> 
-    <a href="https://github.com/malak-mehta50/8_Week_SQL_Challenge/blob/baf00a203d26fec11249312b107a1c22a28f4802/Case%20Study%20%231%20-%20Danny's%20Dinner%20readme.md">
+    <a href="https://github.com/malak-mehta50/8_Week_SQL_Challenge/blob/393e9ea31b2111e5d756ac370b16ccd85710abdf/Case%20Study%20%231%20-%20Danny's%20Dinner%20readme.md">
       <img src="Case Study #1 - Danny's Diner" alt=""> Case Study #1 - Danny's Diner
     </a> 
   </li>
