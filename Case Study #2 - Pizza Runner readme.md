@@ -218,8 +218,170 @@ ORDER BY DATE_PART('dow', order_time);
 <li>Results are grouped and ordered by the day to give a weekly trend overview.</li> </ul>
 
 
+<h4><a name="a.pizzametrics"></a>B. Runner and Customer Experience💁‍♂️🍕</h4>
 
+Q1: How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01)
+```sql
+SELECT DATE_TRUNC('week', registration_date) + Interval '4 days' as week,
+COUNT (runner_id) as runners
+FROM runners
+GROUP BY DATE_TRUNC('week', registration_date) + Interval '4 days';
+```
+<img width="292" height="114" alt="q1" src="https://github.com/user-attachments/assets/9601a71f-5932-4bcc-97e0-161ae6b9606b" />
 
+<h6>Answer:</h6>
+
+<li>This query groups runner sign-ups into **weekly periods** starting from January 1, 2021.</li>
+<li>The <code>DATE_TRUNC('week', registration_date)</code> function aligns dates to the **Monday** of that week.</li>
+<li>Adding an interval of 4 days shifts the start to **Friday**, matching the challenge requirement.</li>
+<li><code>COUNT(runner_id)</code> calculates how many runners signed up during each week.</li>
+<li>It provides insight into sign-up trends over time.</li>
+
+Q2: What was the average time in minutes it took for each runner to arrive at the Pizza Runner HQ to pickup the order?
+```sql
+WITH CTE as (
+SELECT c.order_id, r.runner_id,
+c.order_time, r.pickup_time, 
+EXTRACT(MINUTE FROM(CAST (r.pickup_time AS Timestamp) - CAST(c.order_time AS Timestamp))) as difference
+FROM runner_orders as r
+INNER JOIN customer_orders as c
+USING (order_id)
+WHERE pickup_time <> 'null'
+GROUP BY c.order_id, r.runner_id, c.order_time, r.pickup_time
+) 
+SELECT ROUND(AVG(difference),2) AS avg_time, runner_id
+FROM CTE
+WHERE difference >1
+GROUP BY runner_id;
+```
+<img width="214" height="117" alt="q2" src="https://github.com/user-attachments/assets/c022bbe9-51d2-469c-b6b2-3f1fc99cc2e6" />
+
+<h6>Answer:</h6>
+<li>This query calculates the **pickup time delay** for each runner after an order is placed.</li>
+<li>It uses a <code>WITH</code> clause to create a CTE that extracts the **minute difference** between <code>order_time</code> and <code>pickup_time</code>.</li>
+<li>The difference is filtered to exclude invalid/null entries and very short durations (under 1 minute).</li>
+<li><code>ROUND(AVG(...))</code> computes the average time each runner took to pick up their orders.</li>
+
+Q3: Is there any relationship between the number of pizzas and how long the order takes to prepare?
+```sql
+WITH CTE as(
+SELECT c.order_id, 
+COUNT(pizza_id) as number_of_pizza,
+MAX(EXTRACT(MINUTE FROM(CAST (r.pickup_time AS Timestamp) - CAST(c.order_time AS Timestamp)))) as difference 
+FROM runner_orders as r
+INNER JOIN customer_orders as c
+USING (order_id)
+WHERE pickup_time <> 'null'
+GROUP BY c.order_id
+)
+SELECT number_of_pizza, ROUND (AVG(difference),0) as avg_time_to_prepare
+FROM CTE
+GROUP BY number_of_pizza;
+
+```
+<img width="312" height="115" alt="q3" src="https://github.com/user-attachments/assets/1ef17ba2-6fc2-4e58-98a1-b881a56c92a1" />
+<h6>Answer:</h6>
+<li>This query explores if more pizzas per order impact **preparation time**.</li>
+<li>A <code>CTE</code> is used to count pizzas per order and compute the time difference from order to pickup.</li>
+<li><code>EXTRACT(MINUTE FROM ...)</code> calculates time taken for each order.</li>
+<li>The final result shows average preparation time by number of pizzas ordered.</li>
+<li>This helps assess if order size affects kitchen efficiency.</li>
+
+Q4: What was the average distance travelled for each customer?
+```sql
+SELECT c.customer_id, ROUND(AVG(REPLACE(distance, 'km', '') :: numeric (3,1)),0) as avg_distance_travelled
+FROM customer_orders as c
+INNER JOIN runner_orders as r
+USING (order_id)
+WHERE distance <>'null'
+GROUP BY c.customer_id;
+
+```
+<img width="301" height="170" alt="q4" src="https://github.com/user-attachments/assets/c28906a0-973c-4bb2-869d-8ba2e9cfe134" />
+
+<h6>Answer:</h6>
+<li>This query calculates the **average distance** each customer’s order traveled.</li>
+<li>It joins <code>customer_orders</code> with <code>runner_orders</code> on <code>order_id</code>.</li>
+<li>The <code>REPLACE(distance, 'km', '')</code> removes the 'km' text so the values can be converted into numeric type.</li>
+<li><code>ROUND(AVG(...))</code> gives the average distance for each <code>customer_id</code>.</li>
+<li>Null or invalid distances are excluded to ensure accuracy.</li>
+
+Q5:What was the difference between the longest and shortest delivery times for all orders?
+```sql
+SELECT
+  MAX(
+    CASE 
+      WHEN duration ~ '[0-9]' THEN CAST(REGEXP_REPLACE(duration, '[^0-9]', '', 'g') AS INTEGER)
+      ELSE NULL
+    END
+  ) 
+  - 
+  MIN(
+    CASE 
+      WHEN duration ~ '[0-9]' THEN CAST(REGEXP_REPLACE(duration, '[^0-9]', '', 'g') AS INTEGER)
+      ELSE NULL
+    END
+  ) AS cleaned_duration
+FROM runner_orders;
+
+```
+<img width="171" height="76" alt="q5" src="https://github.com/user-attachments/assets/7dd8a935-b1fc-4815-bc72-b5ec32250852" />
+<li>This query computes the **range** between the longest and shortest delivery durations.</li>
+<li>It uses <code>REGEXP_REPLACE</code> to clean non-numeric characters from the <code>duration</code> column.</li>
+<li><code>CAST(... AS INTEGER)</code> converts the cleaned string to a number.</li>
+<li><code>MAX</code> and <code>MIN</code> are then used to find the time difference.</li>
+<li>Only rows with actual numeric values are considered to avoid skewed results.</li>
+
+Q6: What was the average speed for each runner for each delivery and do you notice any trend for these values?
+```sql
+WITH cleaned_data as(
+SELECT runner_id, order_id,
+ CAST(REPLACE(REPLACE(TRIM(distance),'km',''),' ','')AS FLOAT) AS cleaned_distance,
+ CAST (REPLACE(REPLACE(REPLACE(TRIM(duration),'minutes',''),'mins',''),'minute','')AS FLOAT) AS cleaned_duration
+FROM runner_orders
+WHERE duration <> 'null'
+ AND distance <> 'null'
+ )
+
+SELECT runner_id, order_id, ROUND((cleaned_distance / cleaned_duration)::NUMERIC, 2)as avg_speed
+FROM cleaned_data;
+```
+<img width="292" height="242" alt="q6" src="https://github.com/user-attachments/assets/14b837f5-d120-48af-9c32-638e56c39f8c" />
+
+<h6>Answer:</h6>
+<li>This query measures the **average speed** (distance/time) for each runner per delivery.</li>
+<li>The <code>cleaned_data</code> CTE removes text from the <code>distance</code> and <code>duration</code> fields.</li>
+<li><code>CAST(... AS FLOAT)</code> converts cleaned strings into numeric format.</li>
+<li>Speed is calculated by dividing distance by duration and rounded to 2 decimal places.</li>
+<li>It can be used to compare runner performance or identify outliers.</li>
+
+Q7:What is the successful delivery percentage for each runner?
+```sql
+WITH total_delivery as (
+SELECT runner_id, COUNT(order_id) as total_delivery
+FROM runner_orders
+GROUP BY runner_id
+) 
+, successful_delivery as(
+SELECT runner_id, COUNT(order_id) as successful_delivery
+FROM runner_orders
+WHERE cancellation<>'null' AND cancellation <> 'NaN'
+GROUP by runner_id
+)
+
+SELECT t.runner_id, t.total_delivery, s.successful_delivery,
+ROUND(((s.successful_delivery::FLOAT / t.total_delivery) * 100)::numeric, 2) AS success_percentage
+FROM total_delivery as t
+LEFT JOIN successful_delivery as s
+USING (runner_id);
+```
+<img width="514" height="119" alt="q7" src="https://github.com/user-attachments/assets/f118b2b4-160f-4e83-b0de-3ef9e1a00d15" />
+
+<li>This query calculates the **success rate** of deliveries for each runner.</li>
+<li>The <code>total_delivery</code> CTE counts all deliveries per runner.</li>
+<li>The <code>successful_delivery</code> CTE filters out cancelled or null deliveries.</li>
+<li><code>LEFT JOIN</code> ensures all runners are included, even if they had 0 successful deliveries.</li>
+<li>The final percentage is calculated and rounded to two decimal places for clarity.</li>
 
 
 
