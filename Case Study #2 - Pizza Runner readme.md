@@ -44,6 +44,9 @@ The case study is centered around six tables:
 
 <h1><a name= "Case study"> Case Study Questions & Answers</a></h1>
 
+
+<h4><a name="a.pizzametrics"></a>A. Pizza Metrics🍕🍕</h4>
+
 Q1:How many pizzas were ordered?
 ```sql
 SELECT COUNT(*) AS pizzas_ordered
