@@ -384,6 +384,91 @@ USING (runner_id);
 <li>The final percentage is calculated and rounded to two decimal places for clarity.</li>
 
 
+<h4><a name="c.ingredientoptimisation"></a>C. Ingredient Optimisation🍕</h4>
+
+Q1: What are the standard ingredients for each pizza?
+```sql
+WITH pizza_with_toppings AS (
+  SELECT pizza_name, pizza_id, toppings
+  FROM pizza_names AS pn
+  JOIN pizza_recipes AS pr
+  USING (pizza_id)
+),
+toppings_v2 AS (
+  SELECT 
+    pizza_id, 
+    pizza_name, 
+    UNNEST(STRING_TO_ARRAY(toppings, ','))::INT AS topping_id
+  FROM pizza_with_toppings
+)
+SELECT 
+  t.pizza_name,
+  STRING_AGG(pt.topping_name, ', ' ORDER BY pt.topping_name) AS ingredients
+FROM toppings_v2 t
+JOIN pizza_toppings pt 
+  ON t.topping_id = pt.topping_id
+GROUP BY t.pizza_name
+ORDER BY t.pizza_name;
+
+```
+<img width="563" height="92" alt="q1" src="https://github.com/user-attachments/assets/2a06f6e7-13f6-468d-851b-45e6291d8dd0" />
+<h6>Answer:</h6>
+<li>This query reveals the **complete list of standard ingredients** for each pizza.</li>
+<li>A Common Table Expression (CTE) joins <code>pizza_names</code> with <code>pizza_recipes</code> to access the comma-separated topping IDs.</li>
+<li>It uses <code>UNNEST</code> and <code>STRING_TO_ARRAY</code> to split toppings into individual rows.</li>
+<li>The topping IDs are matched with <code>pizza_toppings</code> to get actual ingredient names.</li>
+<li><code>STRING_AGG</code> is used to combine all ingredients into a readable list, sorted alphabetically.</li>
+
+Q2: What was the most commonly added extra?
+```sql
+WITH CTE as (
+SELECT UNNEST(STRING_TO_ARRAY(extras, ','))::INT as topping_id
+FROM customer_orders
+WHERE extras NOT IN ('', 'NaN', 'null')
+)
+SELECT COUNT(*) as count, p.topping_name
+FROM CTE 
+JOIN pizza_toppings as p
+ON CTE.topping_id = p.topping_id
+GROUP BY p.topping_name
+ORDER BY count desc;
+```
+<img width="222" height="117" alt="q2" src="https://github.com/user-attachments/assets/5ce17e81-9507-4bef-9a00-71fab8f9fc99" />
+
+
+<h6>Answer:</h6>
+<li>This query identifies the **most frequently added extra topping** across all orders.</li>
+<li>It filters out blanks and invalid entries in the <code>extras</code> column.</li>
+<li><code>UNNEST</code> and <code>STRING_TO_ARRAY</code> split multiple extras into separate rows.</li>
+<li>Topping IDs are matched with their names from the <code>pizza_toppings</code> table.</li>
+<li><code>COUNT(*)</code> determines the popularity of each topping, sorted from most to least common.</li>
+
+Q3: What was the most common exclusion?
+```sql
+WITH CTE as (
+SELECT UNNEST(STRING_TO_ARRAY(customer_orders.exclusions, ','))::INT as exclusions_id
+FROM customer_orders
+WHERE exclusions NOT IN ('', 'NaN', 'null')
+)
+SELECT COUNT(*) as count, p.topping_name
+FROM CTE 
+JOIN pizza_toppings as p
+ON CTE.exclusions_id = p.topping_id
+GROUP BY p.topping_name
+ORDER BY count desc;
+
+```
+<img width="214" height="116" alt="q3" src="https://github.com/user-attachments/assets/4550a0ca-1231-4015-a304-809e2255743f" />
+
+<h6>Answer:</h6>
+<li>This query finds the **most frequently excluded topping** by customers.</li>
+<li>It cleans the <code>exclusions</code> field by removing null and invalid values.</li>
+<li><code>UNNEST</code> allows each excluded topping to be analyzed individually.</li>
+<li>The topping IDs are joined with their actual names using the <code>pizza_toppings</code> table.</li>
+<li>It ranks exclusions by frequency to highlight customer preferences or dislikes.</li>
+
+
+
 
 
 
