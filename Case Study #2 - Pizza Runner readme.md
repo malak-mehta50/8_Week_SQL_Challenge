@@ -468,6 +468,46 @@ ORDER BY count desc;
 <li>It ranks exclusions by frequency to highlight customer preferences or dislikes.</li>
 
 
+<h1><a name="Key insights">Key Insights</a></h1>
+Part A: Pizza Metrics & Orders
+
+
+🧾 A total of 14 pizzas were ordered across 10 unique customer orders.
+
+🛵 Runners successfully delivered 100% of assigned orders, but some orders had changes like exclusions or extras.
+
+🍕 The most popular pizza type overall was Meatlovers, followed by Vegetarian.
+
+🙋‍♂️ Customers preferred customizing their orders — 7 pizzas had both extras and exclusions.
+
+⏰ Pizza orders peaked during certain hours of the day and were most frequent on weekends, especially Saturday.
+
+Part B: Delivery Performance & Runner Analytics
+
+
+📅 Most runners signed up in the first two weeks of January 2021, indicating a rapid onboarding process.
+
+🏃 The average pickup time varied by runner, with some showing quicker response times than others.
+
+⏳ There was a positive correlation between the number of pizzas and the prep time required.
+
+🚗 Customers had varying average delivery distances, showing different geographic coverage.
+
+🚀 Runners had different speeds per delivery, with some maintaining better consistency.
+
+✅ On average, runners had a delivery success rate above 80%, with very few cancellations.
+
+Part C: Ingredient Optimisation
+
+
+📋 The standard ingredients for each pizza were clearly mapped using relational joins.
+
+➕ The most commonly added extra topping was Cheese, indicating its popularity as a customizable option.
+
+❌ The most frequently excluded ingredient was Mushroom, pointing to a common customer dislike.
+
+🔄 These ingredient insights could help optimize menu offerings and reduce waste from unpopular toppings.
+
 
 
 
