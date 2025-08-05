@@ -48,6 +48,14 @@ PostgreSQL (local setup via pgAdmin)
   </li>
 </ul>
 
+<ul>
+  <li> 
+    <a href="https://github.com/malak-mehta50/8_Week_SQL_Challenge/blob/Projects/Case%20Study%20%232%20-%20Pizza%20Runner%20readme.md">
+      <img src="Case Study #2 - Pizza Runner" alt=""> Case Study #2 - Pizza Runner
+    </a> 
+  </li>
+</ul>
+
 <h2>✨ About Me</h2>
 <p>
 I'm Malak — passionate about data-driven storytelling, creating visual and analytical solutions, and turning messy business data into actionable insights.
