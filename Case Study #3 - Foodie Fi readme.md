@@ -299,6 +299,7 @@ WHERE annual_date > trial_date;
 </ul>
 
 <h1><a name="Key insights">Key Insights</a></h1>
+
 - The analysis identified the overall churn rate and a specific segment of customers who churned immediately after their free trial. 💔
 
 - A significant number of customers successfully converted from a free trial to a paid plan, indicating the trial's effectiveness. 🎉
