@@ -1,9 +1,9 @@
-# 8_Week_SQL_Challenge
+# Data-Stories-in-SQL
 
-Welcome to my personal solutions for the #8WeekSQLChallenge created by Danny Ma. This repository showcases my journey through eight real-world business case studies, all designed to strengthen and demonstrate advanced SQL skills in a practical, story-driven format.
+Welcome to **Data-Stories-in-SQL** — a curated collection of SQL projects focused on solving real-world business problems using structured query language. Each project is inspired by realistic scenarios where data analysis plays a crucial role in driving decisions.
 
 🧠 What This Repository Includes
-This challenge spans across industries — from restaurants and subscriptions to banking and marketing — and covers a wide variety of SQL topics such as:
+This project explores SQL use cases across multiple industries—ranging from hospitality and food delivery to subscription-based services. Each case study presents a unique business scenario and offers hands-on practice with key SQL concepts such as:
 
 ✅ Joins & Aggregations
 
@@ -52,6 +52,14 @@ PostgreSQL (local setup via pgAdmin)
   <li> 
     <a href="https://github.com/malak-mehta50/8_Week_SQL_Challenge/blob/Projects/Case%20Study%20%232%20-%20Pizza%20Runner%20readme.md">
       <img src="Case Study #2 - Pizza Runner" alt=""> Case Study #2 - Pizza Runner
+    </a> 
+  </li>
+</ul>
+
+<ul>
+  <li> 
+    <a href="https://github.com/malak-mehta50/8_Week_SQL_Challenge/blob/ade27cfae063156ec7058cc44a9188b8eb5c5b08/Case%20Study%20%233%20-%20Foodie%20Fi%20readme.md">
+      <img src="Case Study #3 - Foodie Fi" alt=""> Case Study #3 - Foodie Fi
     </a> 
   </li>
 </ul>
